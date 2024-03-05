@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backyard Farmers Showcase</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            position: relative;
+            background-image: url('harvesting-wheat-tranquil-meadow-sunset-generated-by-ai/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            animation: fadeBackground 10s infinite; 
+        }
+
+        @keyframes fadeBackground {
+            0%, 100% {
+                opacity: 1;
+            }
+            25% {
+                background-image: url('harvesting-wheat-tranquil-meadow-sunset-generated-by-ai/background.jpg');
+            }
+            50% {
+                background-image: url('png.6-background.jpg');
+            }
+            75% {
+                background-image: url('old-lady-background.jpg');
+            }
+        }
+
+        header {
+            background-color: #812fed;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .produce-item {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .produce-item:hover {
+            transform: scale(1.02);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        label {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        input,
+        textarea {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #405de6;
+            color: #fff;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #5773ff;
+        }
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            max-width: 300px;
+            margin: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .slideshow {
+            max-width: 50%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .slideshow img {
+            width: 50%;
+            height: auto;
+            display: none;
+        }
+
+        .slideshow img.active {
+            display: block;
+        }
+
+        .slideshow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #405de6;
+            padding: 0 10px;
+        }
+
+        .slideshow-btn.next {
+            right: 0;
+        }
+
+        .slideshow-btn.prev {
+            left: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #405de6;
+            color: #fff;
+        }
+
+        header img {
+            max-width: 120px;
+            height: auto;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        .search-btn {
+            background-color: #fff;
+            color: #405de6;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #produce-form {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; /* Adjust as needed */
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-in-out;
+            z-index: 2;
+            margin-top: 0;
+        }
+
+        #produce-form.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        #toggle-form-btn {
+            position: fixed;
+            bottom: 10px; /* Adjust as needed */
+            left: 10px; /* Adjust as needed */
+            background-color: #405de6;
+            color: #fff;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #toggle-form-btn:hover {
+            background-color: #5773ff;
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="Kgolagano_logo.png1.png" alt="Logo">
+        <h1>Backyard Farmers Market</h1>
+        <div class="auth-buttons">
+            <button onclick="signup()">Sign Up</button>
+            <button onclick="login()">Login</button>
+            <button onclick="showInputForm()">Post</button>
+        </div>
+                 
+        <div class="search-form">
+            <input type="text" class="search-input" placeholder="Search for a product">
+            <button class="search-btn" onclick="searchProduct()">Search</button>
+        </div>
+    
+    </header>
+    
+    <section class="slideshow" id="imageSlideshow">
+        <!-- You can dynamically populate this section with selected images -->
+        <!-- For now, adding some placeholder images -->
+        <img src="png.2.jpg" class="active">
+        <img src="png.3.jpg">
+        <img src="png.4.jpg">
+        <img src="png.5.jpg">
+        <img src="png.6.jpg">
+        <img src="png.7.jpg">
+        <button class="slideshow-btn prev" onclick="changeSlide(-1)">❮</button>
+        <button class="slideshow-btn next" onclick="changeSlide(1)">❯</button>
+    </section>
+
+    <section>
+        <div id="produce-list"></div>
+        <button id="toggle-form-btn" onclick="toggleForm()">Toggle Form</button>
+        <form id="produce-form">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" required>
+
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" required></textarea>
+
+            <label for="productPrice">Price:</label>
+            <input type="number" id="productPrice" required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" required>
+            
+            <div class="image-upload">
+                <label for="productImage">Upload Photo:</label>
+                <input type="file" id="productImage" accept="image/*" onchange="previewImage()">
+                <div class="image-preview" id="imagePreview">
+                    <img src="#" alt="Image Preview">
+                </div>
+            </div>
+            <button type="button" onclick="addProduce()">Add Produce</button>
+        </form>
+        <div class="catalog" id="productCatalog"></div>
+    </section>
+
+    <footer>
+        <div>
+            <p>&copy; 2024 Backyard Farmers Market. All rights reserved.</p>
+            <p>Contact us at: info@backyardfarmers.com</p>
+            <p>Follow us on social media:</p>
+            <div class="social-media-icons">
+                <a href="https://www.facebook.com/YourFacebookPage" target="_blank" rel="noopener noreferrer">
+                    <img src="facebook-icon.png" alt="Facebook">
+                </a>
+                <a href="https://twitter.com/YourTwitterPage" target="_blank" rel="noopener noreferrer">
+                    <img src="" alt="Twitter">
+                </a>
+                <a href="https://www.instagram.com/YourInstagramPage" target="_blank" rel="noopener noreferrer">
+                    <img src="instagram-icon.png" alt="Instagram">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function signup() {
+    // Implement signup logic here
+        }
+
+        function login() {
+    // Implement login logic here
+        }
+
+        function showInputForm() {
+            const produceForm = document.getElementById('produce-form');
+            produceForm.style.display = 'block';
+        }
+
+        
+        function addProduce() {
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const price = document.getElementById('productPrice').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const address = document.getElementById('address').value;
+
+            const produceList = document.getElementById('produce-list');
+            const produceItem = document.createElement('div');
+            produceItem.classList.add('produce-item');
+            produceItem.innerHTML = `<h2>${name}</h2><p>${description}</p><p>Price: R${price}</p><p>Phone: ${phoneNumber}</p><p>Address: ${address}</p>`;
+
+            produceList.appendChild(produceItem);
+
+            // Clear form fields
+            document.getElementById('productName').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('phoneNumber').value = '';
+            document.getElementById('address').value = '';
+        }
+        
+        function previewImage() {
+            const input = document.getElementById('productImage');
+            const preview = document.getElementById('imagePreview');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.style.display = 'block';
+                    preview.querySelector('img').src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+        
+        function displayCatalog() {
+            const catalog = document.getElementById('productCatalog');
+            catalog.innerHTML = '';
+            const products = [
+                { name: 'Product 1', description: 'Description for Product 1', price: '20', imageUrl: 'path/to/image1.jpg' },
+                { name: 'Product 2', description: 'Description for Product 2', price: '30', imageUrl: 'path/to/image2.jpg' },
+                // Add more products as needed
+            ];
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.classList.add('product-card');
+
+                if (product.imageUrl) {
+                    const image = document.createElement('img');
+                    image.src = product.imageUrl;
+                    card.appendChild(image);
+                }
+
+                const title = document.createElement('h3');
+                title.textContent = product.name;
+                card.appendChild(title);
+
+                const desc = document.createElement('p');
+                desc.textContent = product.description;
+                card.appendChild(desc);
+
+                const price = document.createElement('p');
+                price.textContent = `Price: R${product.price}`;
+                card.appendChild(price);
+
+                catalog.appendChild(card);
+            });
+        }
+
+        // Call the displayCatalog function when the page loads
+        displayCatalog();
+        let currentSlide = 0;
+
+        function showInputForm() {
+             const produceForm = document.getElementById('produce-form'); // Updated to 'produce-form'
+             produceForm.style.display = 'block';
+        }
+
+
+        function addProduct() {
+            // Implement logic to add product to the catalog
+            // (e.g., similar to the addProduce function you provided)
+            
+            // After adding the product, hide the input form
+            document.getElementById('inputForm').style.display = 'none';
+            
+            // After adding the product, update the slideshow with new images
+            updateSlideshow();
+        }
+
+        function updateSlideshow() {
+            // Replace the following placeholder with logic to fetch or load images
+            const newImages = [
+                'path/to/new-image1.jpg',
+                'path/to/new-image2.jpg',
+                'path/to/new-image3.jpg',
+            ];
+
+            const slideshow = document.getElementById('imageSlideshow');
+            slideshow.innerHTML = ''; // Clear existing images
+
+            newImages.forEach((imageUrl, index) => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.classList.add(index === 0 ? 'active' : ''); // Add 'active' class to the first image
+                slideshow.appendChild(img);
+            });
+
+            currentSlide = 0; // Reset the current slide index
+        }
+
+        function changeSlide(direction) {
+            const images = document.querySelectorAll('.slideshow img');
+            images[currentSlide].classList.remove('active');
+
+            currentSlide += direction;
+
+            if (currentSlide < 0) {
+                currentSlide = images.length - 1;
+            } else if (currentSlide >= images.length) {
+                currentSlide = 0;
+            }
+
+            images[currentSlide].classList.add('active');
+        }
+        
+        function searchProduct() {
+            const searchInput = document.querySelector('.search-input').value;
+            
+            // Implement logic to search for a product based on searchInput
+            // You can update the catalog or display results as needed
+            // For now, let's alert the search term
+            alert(`Searching for: ${searchInput}`);
+        }
+
+        const produceForm = document.getElementById('produce-form');
+
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Check if the pointer is near the left border (e.g., within 10 pixels)
+            if (mouseX >= 0 && mouseX <= 10) {
+                produceForm.classList.add('visible');
+            } else {
+                produceForm.classList.remove('visible');
+            }
+        });
+
+        document.addEventListener('click', (event) => {
+            const isFormClicked = event.target.closest('#produce-form');
+            if (!isFormClicked) {
+                produceForm.classList.remove('visible');
+            }
+        });
+
+        function toggleForm() {
+            const produceForm = document.getElementById('produce-form');
+            produceForm.classList.toggle('visible');
+        }
+        
+    </script>
+</body>
+
+</html>
+
